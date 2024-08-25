@@ -1,0 +1,36 @@
+[{
+        "id": 1,
+        "subject": "Flex",
+        "subjectTime": "08:00",
+        "visitorsMax": 60,
+        "visitorsCurrent": 20
+    },
+    {
+        "id": 2,
+        "subject": "Pilates",
+        "subjectTime": "9:30",
+        "visitorsMax": 60,
+        "visitorsCurrent": 40
+    },
+    {
+        "id": 3,
+        "subject": "Power-lifting",
+        "subjectTime": "11:00",
+        "visitorsMax": 20,
+        "visitorsCurrent": 20
+    },
+    {
+        "id": 4,
+        "subject": "Yoga",
+        "subjectTime": "10:30",
+        "visitorsMax": 60,
+        "visitorsCurrent": 58
+    },
+    {
+        "id": 5,
+        "subject": "Shaping",
+        "subjectTime": "18:00",
+        "visitorsMax": 40,
+        "visitorsCurrent": 2
+    }
+]
