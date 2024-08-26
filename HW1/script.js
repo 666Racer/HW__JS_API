@@ -33,10 +33,10 @@ async function dataToLS(url) {
     });
 }
 
-dataToLS(url1);
+document.addEventListener("DOMContentLoaded", () => { //лучше обернуть в него весь код!
+    dataToLS(url1);
 
-const showSchedule = () => {
-    document.addEventListener("DOMContentLoaded", () => {
+    const showSchedule = () => {
 
         for (let i = 0; i <= localStorage.length; i++) {
             const key = localStorage.key(i);
@@ -56,67 +56,69 @@ const showSchedule = () => {
             </li>
         `)
         }
-    })
-}
+    }
 
-showSchedule();
+    dataToLS(url1).then(() => {
+        showSchedule();
+    }); //загрузка из LS перед рендером
 
-const scheduleEl = document.querySelector('.subject-list');
+    const scheduleEl = document.querySelector('.subject-list');
 
-scheduleEl.addEventListener('click', (e) => {
-    const target = e.target;
-    const parentEl = target.closest('li');
-    const visitorsEl = parentEl.querySelector('.visitors-current');
+    scheduleEl.addEventListener('click', (e) => {
+        const target = e.target;
+        const parentEl = target.closest('li');
+        const visitorsEl = parentEl.querySelector('.visitors-current');
 
-    if (target.textContent == 'Записаться') {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = JSON.parse(localStorage.getItem(key));
+        if (target.textContent == 'Записаться') {
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = JSON.parse(localStorage.getItem(key));
 
-            if (key === target.id) {
+                if (key === target.id) {
 
-                if (value.visitorsCurrent < value.visitorsMax) {
-                    value.visitorsCurrent++;
+                    if (value.visitorsCurrent < value.visitorsMax) {
+                        value.visitorsCurrent++;
 
-                    localStorage.setItem(key, JSON.stringify(value));
+                        localStorage.setItem(key, JSON.stringify(value));
 
-                    target.setAttribute('disabled', '');
-                    target.classList.add('btn');
-                    visitorsEl.textContent = value.visitorsCurrent;
+                        target.setAttribute('disabled', '');
+                        target.classList.add('btn');
+                        visitorsEl.textContent = value.visitorsCurrent;
 
-                    const signUpSpan = parentEl.querySelector('#checked');
-                    signUpSpan.style.display = 'block';
-                    signUpSpan.style.color = 'green';
-                    signUpSpan.style.fontWeight = '700';
+                        const signUpSpan = parentEl.querySelector('#checked');
+                        signUpSpan.style.display = 'block';
+                        signUpSpan.style.color = 'green';
+                        signUpSpan.style.fontWeight = '700';
 
-                    const cancelSingUpBtn = parentEl.querySelector('.cancel-signup');
-                    cancelSingUpBtn.style.display = 'block';
-                    cancelSingUpBtn.classList.add('btn-danger')
-                } else if (value.visitorsCurrent >= value.visitorsMax) {
-                    target.setAttribute('disabled', '');
+                        const cancelSingUpBtn = parentEl.querySelector('.cancel-signup');
+                        cancelSingUpBtn.style.display = 'block';
+                        cancelSingUpBtn.classList.add('btn-danger')
+                    } else if (value.visitorsCurrent >= value.visitorsMax) {
+                        target.setAttribute('disabled', '');
+                    }
                 }
             }
         }
-    }
 
-    if (target.textContent == 'Отменить запись') {
-        const signUpBtn = parentEl.querySelector('.signup-btn');
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = JSON.parse(localStorage.getItem(key));
+        if (target.textContent == 'Отменить запись') {
+            const signUpBtn = parentEl.querySelector('.signup-btn');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = JSON.parse(localStorage.getItem(key));
 
-            if (key === signUpBtn.id) {
-                value.visitorsCurrent--;
-                visitorsEl.textContent = value.visitorsCurrent;
+                if (key === signUpBtn.id) {
+                    value.visitorsCurrent--;
+                    visitorsEl.textContent = value.visitorsCurrent;
 
-                localStorage.setItem(key, JSON.stringify(value));
+                    localStorage.setItem(key, JSON.stringify(value));
 
-                signUpBtn.disabled = false;
-                const signUpSpan = parentEl.querySelector('#checked');
-                signUpSpan.style.display = 'none';
-                const cancelSignUpBtn = parentEl.querySelector('.cancel-signup');
-                cancelSignUpBtn.style.display = 'none';
+                    signUpBtn.disabled = false;
+                    const signUpSpan = parentEl.querySelector('#checked');
+                    signUpSpan.style.display = 'none';
+                    const cancelSignUpBtn = parentEl.querySelector('.cancel-signup');
+                    cancelSignUpBtn.style.display = 'none';
+                }
             }
         }
-    }
+    })
 })
