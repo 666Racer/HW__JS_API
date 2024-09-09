@@ -41,5 +41,5 @@ counterButton.addEventListener('click', function () {
 function increaseCounter() {
     const likesCounter = document.querySelector('.image__likes-counter');
     const currentLikes = parseInt(likesCounter.textContent, 10);
-    likesCounter.textContent = currentLikes + 1;
+    likesCounter.textContent = currentLikes++;
 }
