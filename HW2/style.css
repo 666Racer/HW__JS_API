@@ -41,6 +41,8 @@
 }
 
 .slider__img {
+    display: block;
+    margin: 0 auto;
     max-width: 800px;
     max-height: 500px;
 }
